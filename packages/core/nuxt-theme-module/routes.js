@@ -12,6 +12,31 @@ module.exports = function getRoutes(themeDir = __dirname) {
     component: path.resolve(themeDir, 'pages/Community.vue')
   },
   {
+    name: 'join',
+    path: '/join',
+    component: path.resolve(themeDir, 'pages/Community.vue')
+  },
+  {
+    name: 'joinanother',
+    path: '/joinanother',
+    component: path.resolve(themeDir, 'pages/Community.vue')
+  },
+  {
+    name: 'connecting',
+    path: '/connecting',
+    component: path.resolve(themeDir, 'pages/Community.vue')
+  },
+  {
+    name: 'sayhi',
+    path: '/sayhi',
+    component: path.resolve(themeDir, 'pages/Community.vue')
+  },
+  {
+    name: 'thankyou',
+    path: '/thankyou',
+    component: path.resolve(themeDir, 'pages/Community.vue')
+  },
+  {
     name: 'product',
     path: '/p/:id/:slug/',
     component: path.resolve(themeDir, 'pages/Product.vue')
