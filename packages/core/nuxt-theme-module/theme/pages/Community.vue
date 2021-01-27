@@ -27,7 +27,7 @@ export default {
     };
   },
   created: function() {
-      fetch(`https://1eab68570a88.ngrok.io/open-meetings`)
+      fetch(`https://api.cherryontop.2b2b.pl/open-meetings`)
           .then(response => response.text())
           .then((response) => {
             console.log(response)
@@ -36,7 +36,7 @@ export default {
               this.component = 'Joinanother'
             }
           });
-            
+
     },
   methods: {
     stepForward(stepName) {

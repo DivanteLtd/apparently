@@ -70,17 +70,17 @@ export default {
             console.log("==meetingId==", this.meetingId);
             if (this.meetingSession) {
                 this.meetingSession.audioVideo.stop();
-                fetch(`https://1eab68570a88.ngrok.io/close/${this.meetingId}`)
+                fetch(`https://api.cherryontop.2b2b.pl/close/${this.meetingId}`)
                     .then(
                       () => {
                         console.log("==meetingId end==", this.meetingId);
                         }
                     );
             }
-            this.$emit('step', 'Thankyou')            
+            this.$emit('step', 'Thankyou')
     },
     join() {
-            fetch('https://1eab68570a88.ngrok.io/join')
+            fetch('https://api.cherryontop.2b2b.pl/join')
                 .then(response => response.json())
                 .then(async ({meeting, attendee}) => {
                     this.meetingId = meeting.Meeting.MeetingId;
