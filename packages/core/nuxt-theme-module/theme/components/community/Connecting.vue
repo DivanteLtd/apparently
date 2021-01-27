@@ -1,13 +1,13 @@
 <template>
 <div id="form">
-    <SfBanner image="/community/connecting.png" />
+    <SfImage src="/community/connecting.png" />
     <SfSection title-heading="Connecting audio with others..." class="title">
         <p>Continue using website as normally, we will</p>
         <p>connect you with other customer shortly.</p>
     </SfSection>
-    <SfLink @click="stepForward">
+    <SfButton @click="stepForward">
        Cancel chat
-    </SfLink>
+    </SfButton>
 </div>
 </template>
 <script>
@@ -17,8 +17,7 @@ import {
   SfSection,
   SfButton,
   SfInput,
-  SfBanner,
-  SfLink
+  SfImage
 } from '@storefront-ui/vue';
 
 export default {
@@ -27,20 +26,21 @@ export default {
     SfSection,
     SfButton,
     SfInput,
-    SfBanner,
-    SfLink
+    SfImage
   },
   data() {
     return {
     };
   },
-  created: function() {
-    fetch('https://api.cherryontop.2b2b.pl/join')
-                .then(response => response.json())
-                .then(async ({meeting, attendee}) => {
-                  localStorage.setItem('chime', JSON.stringify({meeting, attendee}));
-                });
-    var myVar = setInterval(function(){
+  created: async function() {
+    // await fetch('https://api.cherryontop.2b2b.pl/join')
+    //             .then(response => response.json())
+    //             .then(async ({meeting, attendee}) => {
+    //               localStorage.setItem('chime', JSON.stringify({meeting, attendee}));
+    //             });
+    //             console.log("WTF")
+    //             this.$emit('step', 'Sayhi')
+    var myVar = setInterval(() => {
       fetch(`https://api.cherryontop.2b2b.pl/open-meetings`)
             .then(response => response.text())
             .then((response) => {
@@ -70,3 +70,20 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+  #form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+  }
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .sf-section {
+    --section-margin: var(--spacer-xl) 0;
+    --section-content-margin: var(--spacer-base);
+  }
+</style>

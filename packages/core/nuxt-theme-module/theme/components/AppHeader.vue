@@ -21,11 +21,6 @@
       <SfHeaderNavigationItem class="nav-item" data-cy="app-header-url_women" label="WOMEN" :link="localePath('/c/women')" />
       <SfHeaderNavigationItem class="nav-item"  data-cy="app-header-url_men" label="MEN" :link="localePath('/c/men')" />
       <SfHeaderNavigationItem class="nav-item"  label="community" :link="localePath('/community')" />
-      <SfHeaderNavigationItem class="nav-item"  label="join" :link="localePath('/join')" />
-      <SfHeaderNavigationItem class="nav-item"  label="joinanother" :link="localePath('/joinanother')" />
-      <SfHeaderNavigationItem class="nav-item"  label="connecting" :link="localePath('/connecting')" />
-      <SfHeaderNavigationItem class="nav-item"  label="sayhi" :link="localePath('/sayhi')" />
-      <SfHeaderNavigationItem class="nav-item"  label="thankyou" :link="localePath('/thankyou')" />
     </template>
     <template #aside>
       <LocaleSelector class="smartphone-only" />
