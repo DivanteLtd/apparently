@@ -40,13 +40,13 @@ export default {
     //             });
     //             console.log("WTF")
     //             this.$emit('step', 'Sayhi')
-    if (!localStorage.getItem("chime")) {
+    // if (!localStorage.getItem("chime")) {
       fetch('https://api.cherryontop.2b2b.pl/join')
                 .then(response => response.json())
                 .then(async ({meeting, attendee}) => {
                   localStorage.setItem('chime', JSON.stringify({meeting, attendee}));
                 });
-    }
+    // }
     var myVar = setInterval(() => {
       fetch(`https://api.cherryontop.2b2b.pl/open-meetings`)
             .then(response => response.text())
