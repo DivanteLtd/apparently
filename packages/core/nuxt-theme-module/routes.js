@@ -7,6 +7,11 @@ module.exports = function getRoutes(themeDir = __dirname) {
     component: path.resolve(themeDir, 'pages/Home.vue')
   },
   {
+    name: 'community',
+    path: '/community',
+    component: path.resolve(themeDir, 'pages/Community.vue')
+  },
+  {
     name: 'product',
     path: '/p/:id/:slug/',
     component: path.resolve(themeDir, 'pages/Product.vue')

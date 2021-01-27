@@ -99,5 +99,8 @@
   },
   "lint-staged": {
     "*.{js,ts,vue}": "eslint --fix"
+  },
+  "dependencies": {
+    "amazon-chime-sdk-js": "^2.4.0"
   }
 }

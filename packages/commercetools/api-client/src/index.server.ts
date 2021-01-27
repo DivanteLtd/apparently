@@ -60,6 +60,8 @@ const parseToken = (rawToken) => {
 
 const tokenExtension: ApiClientExtension = (req, res) => {
   const rawCurrentToken = req.cookies['vsf-commercetools-token'];
+  console.log("WTF-token")
+  console.log(rawCurrentToken)
   const currentToken = parseToken(rawCurrentToken);
 
   return {
