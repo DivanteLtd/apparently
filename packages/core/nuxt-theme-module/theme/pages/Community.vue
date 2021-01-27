@@ -11,6 +11,15 @@ import Sayhi from '~/components/community/Sayhi.vue'
 import Thankyou from '~/components/community/Thankyou.vue'
 import Joinanother from '~/components/community/Joinanother.vue'
 
+import {
+  ConsoleLogger,
+  DefaultDeviceController,
+  DefaultMeetingSession,
+  LogLevel,
+  MeetingSessionConfiguration
+} from 'amazon-chime-sdk-js';
+
+
 export default {
   name: 'Community',
   components: {

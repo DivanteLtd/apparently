@@ -5,9 +5,6 @@
         <p>Friendly hint:</p>
         <p>Both of you viewed “cozy red t-shirt"</p>
     </SfSection>
-    <SfButton class="color-primary" @click="join">
-      Join chat
-    </SfButton>
     <SfButton class="color-primary" @click="end">
       Cancel chat
     </SfButton>
@@ -39,29 +36,38 @@ export default {
       meetingSession: null
     };
   },
-  created: async function() {
-    // const {meeting, attendee} = JSON.parse(localStorage.getItem("chime"))
-    // this.meetingId = meeting.Meeting.MeetingId;
-    //                 const logger = new ConsoleLogger('ChimeMeetingLogs', LogLevel.INFO);
-    //                 const deviceController = new DefaultDeviceController(logger);
-    //                 const configuration = new MeetingSessionConfiguration(meeting, attendee);
-    //                 this.meetingSession = new DefaultMeetingSession(configuration, logger, deviceController);
-    //                 const videoElement = document.getElementById('video');
-    //                 const tokenElement = document.getElementById('token');
-    //                 const observer = {
-    //                     audioVideoDidStart: () => {
-    //                         this.meetingSession.audioVideo.startLocalVideoTile();
-    //                     },
-    //                     videoTileDidUpdate: tileState => {
-    //                         this.meetingSession.audioVideo.bindVideoElement(tileState.tileId, videoElement);
-    //                     }
-    //                 }
-    //                 this.meetingSession.audioVideo.addObserver(observer);
-    //                 const videoInputDevices = await this.meetingSession.audioVideo.listVideoInputDevices();
-    //                 const firstVideoDeviceId = videoInputDevices[0].deviceId;
-    //                 await this.meetingSession.audioVideo.chooseVideoInputDevice(firstVideoDeviceId);
-    //                 this.meetingSession.audioVideo.start();
-    //                 tokenElement.innerText = this.meetingId;
+  mounted: async function() {
+    const {meeting, attendee} = JSON.parse(localStorage.getItem("chime"))
+    this.meetingId = meeting.Meeting.MeetingId;
+    const logger = new ConsoleLogger('ChimeMeetingLogs', LogLevel.INFO);
+    const deviceController = new DefaultDeviceController(logger);
+    const configuration = new MeetingSessionConfiguration(meeting, attendee);
+    this.meetingSession = new DefaultMeetingSession(configuration, logger, deviceController);
+    const videoElement = document.getElementById('video');
+    const observer = {
+
+        audioVideoDidStart: () => {
+            this.meetingSession.audioVideo.startLocalVideoTile();
+        },
+        videoTileDidUpdate: tileState => {
+          if (!tileState.boundAttendeeId || tileState.localTile || tileState.isContent) {
+            return;
+          }
+          this.meetingSession.audioVideo.bindVideoElement(tileState.tileId, videoElement);
+        }
+    }
+    const unmuted = meetingSession.audioVideo.realtimeUnmuteLocalAudio();
+    if (unmuted) {
+      console.log('Other attendees can hear your audio');
+    } else {
+      // See the realtimeSetCanUnmuteLocalAudio use case below.
+      console.log('You cannot unmute yourself');
+    }
+    this.meetingSession.audioVideo.addObserver(observer);
+    const videoInputDevices = await this.meetingSession.audioVideo.listVideoInputDevices();
+    const firstVideoDeviceId = videoInputDevices[0].deviceId;
+    await this.meetingSession.audioVideo.chooseVideoInputDevice(firstVideoDeviceId);
+    this.meetingSession.audioVideo.start();
   },
   methods: {
     end() {

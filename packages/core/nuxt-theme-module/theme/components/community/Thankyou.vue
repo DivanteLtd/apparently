@@ -52,3 +52,24 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+  #thankyou {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+  }
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .sf-section {
+    --section-margin: var(--spacer-xl) 0;
+    --section-content-margin: var(--spacer-base);
+  }
+
+  .sf-button {
+    margin: var(--spacer-xs) 0;
+  }
+</style>

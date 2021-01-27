@@ -1,6 +1,6 @@
 <template>
 <div id="join">
-    <SfBanner image="/community/joinanother.png" />
+    <SfImage src="/community/joinanother.png" />
     <SfSection title-heading="Joanna invites you to chat" class="title">
         <p>Invitation lasts for <strong>15</strong> more seconds</p>
     </SfSection>
@@ -15,7 +15,7 @@
 <script>
 
 import {
-  SfBanner,
+  SfImage,
   SfSection,
   SfButton
 } from '@storefront-ui/vue';
@@ -23,7 +23,7 @@ import {
 export default {
   name: 'Joinanother',
   components: {
-    SfBanner,
+    SfImage,
     SfSection,
     SfButton,
   },
@@ -39,3 +39,24 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+  #join {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+  }
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .sf-section {
+    --section-margin: var(--spacer-xl) 0;
+    --section-content-margin: var(--spacer-base);
+  }
+
+  .sf-button {
+    margin: var(--spacer-xs) 0;
+  }
+</style>
