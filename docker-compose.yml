@@ -1,0 +1,28 @@
+version: "3.6"
+services:
+  vsf-web:
+    container_name: "vsf-web"
+    restart: "always"
+    depends_on: [ "vsf-api" ]
+    build:
+      context: "."
+      dockerfile: "./dev/docker/Dockerfile"
+    networks:
+      vsf_net:
+        aliases: [ "vsf-web" ]
+    ports: [ "12585:3000" ]
+  vsf-api:
+    container_name: "vsf-api"
+    restart: "always"
+    build:
+      context: "."
+      dockerfile: "./dev/docker/api/Dockerfile"
+    networks:
+      vsf_net:
+        aliases: [ "vsf-api" ]
+    ports: [ "12586:3333" ]
+    environment:
+      - AWS_ACCESS_KEY_ID=
+      - AWS_SECRET_ACCESS_KEY=
+networks:
+  vsf_net:
