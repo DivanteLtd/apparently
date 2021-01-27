@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     stepForward() {
-      this.$emit('step', 'Sayhi')
+      this.$emit('step', 'Connecting')
     }
   }
 };
