@@ -29,11 +29,23 @@ const chime = new AWS.Chime({region: 'us-east-1'});
 chime.endpoint = new AWS.Endpoint('https://service.chime.aws.amazon.com');
 
 // helpers
+async function isActiveMeeting(meeting) {
+  const info = await chime.getMeeting({
+    MeetingId: meeting.Meeting.MeetingId
+  }).promise();
+  return !(!info || !info.Meeting || !info.Meeting.MeetingId);
+}
+
 async function getMeeting() {
   // if (activeSessions.length) {
   //   // @todo sprawdzić czy nie wygasła
   //   return activeSessions.pop();
   // }
+  if (meeting) {
+    const isActive = await isActiveMeeting(meeting);
+    console.log('==isActive==', isActive);
+    !isActive && (meeting = null);
+  }
   if (null === meeting) {
     meeting = await chime.createMeeting({
       ClientRequestToken: uuid(),
