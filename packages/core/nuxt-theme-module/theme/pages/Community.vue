@@ -33,6 +33,11 @@ export default {
             console.log(response)
             if (response > 0) {
               console.log("IN")
+              fetch('https://api.cherryontop.2b2b.pl/join')
+                .then(response => response.json())
+                .then(async ({meeting, attendee}) => {
+                  localStorage.setItem('chime', JSON.stringify({meeting, attendee}));
+                });
               this.component = 'Joinanother'
             }
           });

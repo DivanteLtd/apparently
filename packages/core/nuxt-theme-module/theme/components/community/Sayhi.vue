@@ -1,6 +1,6 @@
 <template>
-<div id="sauhi">
-    <video id="video" style="width:100px;height:100px;background:#ddd;"></video>
+<div id="sayhi">
+    <video id="video"></video>
     <SfSection title-heading="Say Hi to Joanna" class="title">
         <p>Friendly hint:</p>
         <p>Both of you viewed “cozy red t-shirt"</p>
@@ -16,8 +16,6 @@
 <script>
 import {
   SfSection,
-  SfLink,
-  SfBanner,
   SfButton
 } from '@storefront-ui/vue';
 
@@ -42,28 +40,28 @@ export default {
     };
   },
   created: async function() {
-    const {meeting, attendee} = JSON.parse(localStorage.getItem("chime"))
-    this.meetingId = meeting.Meeting.MeetingId;
-                    const logger = new ConsoleLogger('ChimeMeetingLogs', LogLevel.INFO);
-                    const deviceController = new DefaultDeviceController(logger);
-                    const configuration = new MeetingSessionConfiguration(meeting, attendee);
-                    this.meetingSession = new DefaultMeetingSession(configuration, logger, deviceController);
-                    const videoElement = document.getElementById('video');
-                    const tokenElement = document.getElementById('token');
-                    const observer = {
-                        audioVideoDidStart: () => {
-                            this.meetingSession.audioVideo.startLocalVideoTile();
-                        },
-                        videoTileDidUpdate: tileState => {
-                            this.meetingSession.audioVideo.bindVideoElement(tileState.tileId, videoElement);
-                        }
-                    }
-                    this.meetingSession.audioVideo.addObserver(observer);
-                    const videoInputDevices = await this.meetingSession.audioVideo.listVideoInputDevices();
-                    const firstVideoDeviceId = videoInputDevices[0].deviceId;
-                    await this.meetingSession.audioVideo.chooseVideoInputDevice(firstVideoDeviceId);
-                    this.meetingSession.audioVideo.start();
-                    tokenElement.innerText = this.meetingId;
+    // const {meeting, attendee} = JSON.parse(localStorage.getItem("chime"))
+    // this.meetingId = meeting.Meeting.MeetingId;
+    //                 const logger = new ConsoleLogger('ChimeMeetingLogs', LogLevel.INFO);
+    //                 const deviceController = new DefaultDeviceController(logger);
+    //                 const configuration = new MeetingSessionConfiguration(meeting, attendee);
+    //                 this.meetingSession = new DefaultMeetingSession(configuration, logger, deviceController);
+    //                 const videoElement = document.getElementById('video');
+    //                 const tokenElement = document.getElementById('token');
+    //                 const observer = {
+    //                     audioVideoDidStart: () => {
+    //                         this.meetingSession.audioVideo.startLocalVideoTile();
+    //                     },
+    //                     videoTileDidUpdate: tileState => {
+    //                         this.meetingSession.audioVideo.bindVideoElement(tileState.tileId, videoElement);
+    //                     }
+    //                 }
+    //                 this.meetingSession.audioVideo.addObserver(observer);
+    //                 const videoInputDevices = await this.meetingSession.audioVideo.listVideoInputDevices();
+    //                 const firstVideoDeviceId = videoInputDevices[0].deviceId;
+    //                 await this.meetingSession.audioVideo.chooseVideoInputDevice(firstVideoDeviceId);
+    //                 this.meetingSession.audioVideo.start();
+    //                 tokenElement.innerText = this.meetingId;
   },
   methods: {
     end() {
@@ -112,3 +110,38 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+  #sayhi {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+  }
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .sf-section {
+    --section-margin: var(--spacer-xl) 0;
+    --section-content-margin: var(--spacer-base);
+  }
+
+  .sf-button {
+    margin: var(--spacer-xs) 0;
+  }
+
+  #video {
+    border-radius: 2rem;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+      0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+      0 12.5px 10px rgba(0, 0, 0, 0.06),
+      0 22.3px 17.9px rgba(0, 0, 0, 0.012),
+      0 41.8px 33.4px rgba(0, 0, 0, 0.016),
+      0 30px 80px rgba(0, 0, 0, 0.12)
+      ;
+    background: var(--c-gray-variant);
+    width: 47rem;
+    height: 30rem;
+  }
+</style>
