@@ -27,7 +27,7 @@ export default {
     };
   },
   created: function() {
-      fetch(`https://1eab68570a88.ngrok.io/open-meetings`)
+      fetch(`https://93b312e824f8.ngrok.io/open-meetings`)
           .then(response => response.text())
           .then((response) => {
             console.log(response)
