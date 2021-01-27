@@ -56,7 +56,7 @@ export default {
           this.meetingSession.audioVideo.bindVideoElement(tileState.tileId, videoElement);
         }
     }
-    const unmuted = meetingSession.audioVideo.realtimeUnmuteLocalAudio();
+    const unmuted = this.meetingSession.audioVideo.realtimeUnmuteLocalAudio();
     if (unmuted) {
       console.log('Other attendees can hear your audio');
     } else {
@@ -81,6 +81,7 @@ export default {
                         }
                     );
             }
+            localStorage.setItem("chime", null)
             this.$emit('step', 'Thankyou')
     },
     join() {

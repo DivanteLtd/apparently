@@ -40,7 +40,7 @@ export default {
     //             });
     //             console.log("WTF")
     //             this.$emit('step', 'Sayhi')
-    if (!localStorage.getItem("cime")) {
+    if (!localStorage.getItem("chime")) {
       fetch('https://api.cherryontop.2b2b.pl/join')
                 .then(response => response.json())
                 .then(async ({meeting, attendee}) => {
