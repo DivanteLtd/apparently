@@ -18,7 +18,9 @@ const app = express();
 app.use(cors());
 
 const port = 3333;
-// const activeSessions = [];
+const activeSessions = [];
+const creds = new AWS.Credentials('key', 'secret');
+AWS.config.credentials = creds;
 
 AWS.config.apiVersions = {
   chime: '2018-05-01'
@@ -42,10 +44,10 @@ async function isActiveMeeting(meeting) {
 }
 
 async function getMeeting() {
-  // if (activeSessions.length) {
-  //   // @todo sprawdzić czy nie wygasła
-  //   return activeSessions.pop();
-  // }
+  if (activeSessions.length) {
+    // @todo sprawdzić czy nie wygasła
+    return activeSessions.pop();
+  }
   if (meeting) {
     const isActive = await isActiveMeeting(meeting);
     console.log('==isActive==', isActive);

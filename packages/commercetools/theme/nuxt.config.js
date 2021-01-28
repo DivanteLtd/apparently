@@ -82,13 +82,13 @@ export default {
     project-only-end */
     ['@vue-storefront/commercetools/nuxt', {
       api: {
-        uri: 'https://api.europe-west1.gcp.commercetools.com/cherryontop/graphql',
-        authHost: 'https://auth.europe-west1.gcp.commercetools.com',
-        projectKey: 'cherryontop',
-        clientId: 'hHDHlGBu3_e_e0rcDV4Z8xqX',
-        clientSecret: 'D-ffgi1hed2WTIR4kKX7Za2SGmgzJjuJ',
+        uri: '<your-garphql-uri>',
+        authHost: '<your-auth-uri>',
+        projectKey: '<project-name>',
+        clientId: '<client-id>',
+        clientSecret: '<client-secret>',
         scopes: [
-          'manage_project:cherryontop'
+          '<manage_project:<project-name>'
         ]
       },
       i18n: {
