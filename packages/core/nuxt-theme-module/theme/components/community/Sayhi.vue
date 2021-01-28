@@ -1,6 +1,7 @@
 <template>
 <div id="sayhi">
     <video id="video"></video>
+    <audio id="audio"></audio>
     <SfSection title-heading="Say Hi to Joanna" class="title">
         <p>Friendly hint:</p>
         <p>Both of you viewed “cozy red t-shirt"</p>
@@ -45,7 +46,6 @@ export default {
     this.meetingSession = new DefaultMeetingSession(configuration, logger, deviceController);
     const videoElement = document.getElementById('video');
     const observer = {
-
         audioVideoDidStart: () => {
             this.meetingSession.audioVideo.startLocalVideoTile();
         },
@@ -56,13 +56,23 @@ export default {
           this.meetingSession.audioVideo.bindVideoElement(tileState.tileId, videoElement);
         }
     }
-    const unmuted = this.meetingSession.audioVideo.realtimeUnmuteLocalAudio();
-    if (unmuted) {
-      console.log('Other attendees can hear your audio');
-    } else {
-      // See the realtimeSetCanUnmuteLocalAudio use case below.
-      console.log('You cannot unmute yourself');
-    }
+    const audioElement = document.getElementById('audio');
+    const audioInputDevices = await this.meetingSession.audioVideo.listAudioInputDevices();
+    const audioOutputDevices = await this.meetingSession.audioVideo.listAudioOutputDevices();
+    const firstAudioInputDevice = audioInputDevices[0];
+    const firstAudioOutputDevice = audioOutputDevices[0];
+    await this.meetingSession.audioVideo.chooseAudioInputDevice(firstAudioInputDevice.deviceId);
+    await this.meetingSession.audioVideo.chooseAudioOutputDevice(
+        firstAudioOutputDevice.deviceId
+    );
+    await this.meetingSession.audioVideo.bindAudioElement(audioElement);
+    // const unmuted = this.meetingSession.audioVideo.realtimeUnmuteLocalAudio();
+    // if (unmuted) {
+    //   console.log('Other attendees can hear your audio');
+    // } else {
+    //   // See the realtimeSetCanUnmuteLocalAudio use case below.
+    //   console.log('You cannot unmute yourself');
+    // }
     this.meetingSession.audioVideo.addObserver(observer);
     const videoInputDevices = await this.meetingSession.audioVideo.listVideoInputDevices();
     const firstVideoDeviceId = videoInputDevices[0].deviceId;
@@ -103,6 +113,16 @@ export default {
                             this.meetingSession.audioVideo.bindVideoElement(tileState.tileId, videoElement);
                         }
                     }
+                    const audioElement = document.getElementById('audio');
+                    const audioInputDevices = await this.meetingSession.audioVideo.listAudioInputDevices();
+                    const audioOutputDevices = await this.meetingSession.audioVideo.listAudioOutputDevices();
+                    const firstAudioInputDevice = audioInputDevices[0];
+                    const firstAudioOutputDevice = audioOutputDevices[0];
+                    await this.meetingSession.audioVideo.chooseAudioInputDevice(firstAudioInputDevice.deviceId);
+                    await this.meetingSession.audioVideo.chooseAudioOutputDevice(
+                        firstAudioOutputDevice.deviceId
+                    );
+                    await this.meetingSession.audioVideo.bindAudioElement(audioElement);
                     this.meetingSession.audioVideo.addObserver(observer);
                     const videoInputDevices = await this.meetingSession.audioVideo.listVideoInputDevices();
                     const firstVideoDeviceId = videoInputDevices[0].deviceId;
