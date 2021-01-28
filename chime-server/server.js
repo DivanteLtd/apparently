@@ -30,9 +30,14 @@ chime.endpoint = new AWS.Endpoint('https://service.chime.aws.amazon.com');
 
 // helpers
 async function isActiveMeeting(meeting) {
-  const info = await chime.getMeeting({
-    MeetingId: meeting.Meeting.MeetingId
-  }).promise();
+  let info = null;
+  try {
+    info = await chime.getMeeting({
+      MeetingId: meeting.Meeting.MeetingId
+    }).promise();
+  } catch (e) {
+    console.error(e);
+  }
   return !(!info || !info.Meeting || !info.Meeting.MeetingId);
 }
 
@@ -44,7 +49,10 @@ async function getMeeting() {
   if (meeting) {
     const isActive = await isActiveMeeting(meeting);
     console.log('==isActive==', isActive);
-    !isActive && (meeting = null);
+    if (!isActive) {
+      meeting = null;
+      meetingCounter = 0;
+    }
   }
   if (null === meeting) {
     meeting = await chime.createMeeting({
@@ -58,6 +66,7 @@ async function getMeeting() {
 }
 
 async function createAttendee(meeting) {
+  console.log('==createAttendee==', meeting.Meeting.MeetingId);
   return chime.createAttendee({
     MeetingId: meeting.Meeting.MeetingId,
     ExternalUserId: uuid()
@@ -75,13 +84,22 @@ app.get('/join', async (req, res) => {
   }));
 });
 
+// reset
+app.get('/reset', async (req, res) => {
+  meeting = null;
+  meetingCounter = 0;
+  res.send('OK');
+});
+
 // close
 app.get('/close/:meetingId', async (req, res) => {
   // const meeting = meetings.get(req.params.meetingId);
   // if (meeting) {
   //   activeSessions.push(meeting);
   // }
-  --meetingCounter;
+  if (meetingCounter > 0) {
+    --meetingCounter;
+  }
   res.send('OK');
 });
 
